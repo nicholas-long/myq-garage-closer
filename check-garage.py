@@ -20,6 +20,8 @@ async def handle_garage(device):
       maxTime = datetime.timedelta(minutes=max_minutes)
       if (difference > maxTime):
         await device.close()
+    else:
+      print(f"Garage is {device.state}")
 
 
 async def main() -> None:
