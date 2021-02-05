@@ -11,13 +11,12 @@ config.read('settings.conf')
 
 async def handle_garage(device):
     max_minutes = int(config['Duration']['max_minutes_open'])
-    if (device.state == "open"):
+    if (device.state == 'open' or device.state == 'stopped'):
       updateTime = device.device_json['state']['last_update']
       time = dateutil.parser.parse(updateTime)
       now = datetime.datetime.now(datetime.timezone.utc)
       difference = now - time
-      print("Open for")
-      print(difference)
+      print(f"Garage is {device.state} for {difference}")
       maxTime = datetime.timedelta(minutes=max_minutes)
       if (difference > maxTime):
         await device.close()
