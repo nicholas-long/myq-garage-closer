@@ -1,0 +1,6 @@
+[Login]
+email = email@example.com
+password = password1234
+
+[Duration]
+max_minutes_open = 20
