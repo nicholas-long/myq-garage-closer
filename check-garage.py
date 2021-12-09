@@ -42,6 +42,4 @@ async def main() -> None:
           if (device.device_family == 'garagedoor' and device.close_allowed):
               await handle_garage(device)
 
-
-
-asyncio.get_event_loop().run_until_complete(main())
+asyncio.run(main())
