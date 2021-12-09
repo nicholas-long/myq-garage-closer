@@ -1,2 +1,5 @@
 pymyq
 python-dateutil
+asyncio
+aiohttp
+python-dotenv

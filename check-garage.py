@@ -5,12 +5,16 @@ import json
 import datetime
 import dateutil.parser
 import configparser
+import os
+import dotenv
 
-config = configparser.ConfigParser()
-config.read('settings.conf')
+dotenv.load_dotenv('.env')
+email = os.getenv('MYQ_EMAIL')
+password = os.getenv('MYQ_PASSWORD')
+duration = os.getenv('MYQ_MAX_MINUTES_OPEN')
 
 async def handle_garage(device):
-    max_minutes = int(config['Duration']['max_minutes_open'])
+    max_minutes = int(duration)
     if (device.state == 'open' or device.state == 'stopped'):
       updateTime = device.device_json['state']['last_update']
       time = dateutil.parser.parse(updateTime)
@@ -27,8 +31,6 @@ async def handle_garage(device):
 async def main() -> None:
     """Create the aiohttp session and run."""
     async with ClientSession() as websession:
-      email = config['Login']['email']
-      password = config['Login']['password']
       myq = await pymyq.login(email, password, websession)
       # Return *all* devices:
       devices = myq.devices
