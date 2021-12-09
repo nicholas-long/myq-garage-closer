@@ -13,6 +13,9 @@ email = os.getenv('MYQ_EMAIL')
 password = os.getenv('MYQ_PASSWORD')
 duration = os.getenv('MYQ_MAX_MINUTES_OPEN')
 
+environ_params = [x for x in [email, password, duration] if x is not None]
+assert(len(environ_params) == 3)
+
 async def handle_garage(device):
     max_minutes = int(duration)
     if (device.state == 'open' or device.state == 'stopped'):
